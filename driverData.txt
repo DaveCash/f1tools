@@ -1,0 +1,21 @@
+name,flagId,pts
+PercyM8,ie,82
+Penny Saucko,gb,45
+romans-rzpublic28,gb,37
+jhamster97,it,33
+jamesbrookes200,fi,33
+Ginnittowinit,fi,32
+Avilach,it,29
+SRL_ALBERT,gb,23
+Temp,ie,20
+NoFan_DANgle,ie,20
+fa_flames,gb,18
+jaaii-hooo,fi,14
+PedBhoy89,it,12
+MADG,it,12
+gjbotha187,it,11
+pierreo,gb,10
+Davidoeah,ie,8
+Warrior_huntsman,gb,5
+RaZoR_082,gb,2
+Dave,ie,1

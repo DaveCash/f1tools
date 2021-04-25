@@ -1,0 +1,169 @@
+<html>
+	<head>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				var baseFlagCdnUrl = "https://flagcdn.com/w80/";
+				
+				var $table = $(".results-table");
+				
+				$("#set-data-button").click(function() {
+					var file = $("#data-file")[0].files[0];
+					
+					if (file) {
+						var reader = new FileReader();
+						reader.readAsText(file, "UTF-8");
+						reader.onload = function (evt) {
+							var fileContent = evt.target.result;
+							
+							var contentRows = fileContent.split("\r\n");  
+							
+							$table.find("tr:not(.header-row)").remove();
+							
+							for(var i = 1; i < contentRows.length; i++) {
+								var driverData = contentRows[i].split(",");
+								
+								var driverName = driverData[0];
+								var flagCode = driverData[1];
+								var pts = driverData[2];
+								
+								$table.append('<tr><td class="rank-col">'+ (i) +'</td><td class="flag-col"><img class="flag" src="'+ baseFlagCdnUrl + flagCode + ".png" +'" /></td><td class="name-col">'+ driverName +'</td><td class="pts-col">'+ pts +'</td></tr>');
+							}
+							
+						}
+						reader.onerror = function (evt) {
+							console.log("error reading file");
+							console.log(evt);
+						}
+					}
+				});
+				
+				$("#set-background-button").click(function() {
+					var file = $("#background-file")[0].files[0];
+					
+					console.log(file);
+					
+					if (file) {
+						var reader = new FileReader();
+						reader.readAsDataURL(file);
+						reader.onload = function (evt) {
+							var fileContent = evt.target.result;
+							
+							console.log(fileContent);
+							
+							$("#main-content").css("background-image", "url("+ fileContent +")");
+						}
+						reader.onerror = function (evt) {
+							console.log("error reading file");
+							console.log(evt);
+						}
+					}
+				});
+			});
+		</script>
+		<style>
+			body {
+				background-color: rgb(14, 14, 14);
+				font-family: Ubuntu, sans-serif;
+			}
+			
+			#main-content {
+				background-image: url("https://i.pinimg.com/originals/37/ae/3b/37ae3bf2f31dfd48202a790cc5f8c6f6.jpg");
+				background-size: cover;
+				background-repeat: no-repeat;
+				width: 60%;
+				font-size: 30px;
+				margin-top: 100px;
+				margin-bottom: 1000px;
+			}
+			
+			.center {
+			  margin-left: auto;
+			  margin-right: auto;
+			  color: white;
+			}
+			
+			.heading {
+				padding-top: 30px;
+				text-align: center;
+				color: rgb(253, 204, 2);
+				text-transform: uppercase;
+			}
+			
+			.results-table {
+				padding: 0px 0px 70px 0px;
+				font-size: 30px;
+				width: 80%;
+				text-align: left;
+				border-spacing: 0px 10px;
+			}
+			
+			.results-table tr {
+				height: 50px;
+				margin-bottom: 10px;
+			}
+			
+			.results-table tr td, .results-table tr th {
+				border: none;
+			}
+			
+			.results-table tr th {
+				color: rgb(253, 204, 2);
+			}
+			
+			.results-table tr td {
+				background-color: rgba(68, 68, 68, .5);
+			}
+			
+			.rank-col {
+				padding-left: 10px;
+				width: 100px;
+				text-align: center;
+			}
+			
+			.flag-col {
+				width: 100px;
+			}
+			
+			.flag {
+				width: 65px;
+			}
+			
+			#custom-form {
+				background-color: white;
+				padding: 40px;
+			}
+			
+			.form-input {
+				padding-bottom: 15px;
+			}
+			
+			.form-input label {
+				display: block;
+				font-size: 18px;
+				padding-bottom: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main-content" class="center">
+			<h3 class="center heading">Season 1 - Driver Standings</h3>
+			<table class="center results-table">
+				<tr class="header-row">
+					<th class="rank-col">RANKING</th>
+					<th class="flag-col"></th>
+					<th class="name-col"></th>
+					<th class="pts-col">PTS</th>
+				</tr>
+			</table>
+		</div>
+		<div id="custom-form">
+			<div class="form-input">
+				<label>Data file</label><input id="data-file" type="file"/><button id="set-data-button">Set data</button>
+			</div>
+			<div class="form-input">
+				<label>Background image</label><input id="background-file" type="file"/><button id="set-background-button">Set background image</button>
+			</div>
+		</div>
+	</body>
+</html>
